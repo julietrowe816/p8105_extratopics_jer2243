@@ -57,8 +57,15 @@ Column {data-width=650}
 ### Chart A
 
 ```{r}
-renderText({
-  input[["borough_choice"]]
+renderPlotly({
+  nyc_airbnb |>
+    filter(
+      borough == input[["borough_choice"]],
+      price<input[["price_range"]][2], 
+      price>input[["price_range"]][1],
+      room_type == input[["room_type"]]
+      ) |>
+  plot_ly(x = ~lat, y=~long, type = "scatter", mode = "markers", color = ~price)
 })
 ```
 
